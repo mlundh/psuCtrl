@@ -1,5 +1,7 @@
 # psuCtrl
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Command-line controller for Siglent SPD series bench PSUs over SCPI/TCP.
 
 ## Supported models
