@@ -1,0 +1,174 @@
+SIGLENT
+28 SPD3000X QuickStart
+3.2 Command list
+1. *IDN?
+2. *SAV
+3. *RCL
+4. INSTrument Subsystem
+5. MEASure Subsystem
+6. CURRent Subsystem
+7. VOLTage Subsystem
+8. OUTPut Subsystem
+9. TIMEr Subsystem
+10. SYSTem Subsystem
+11. IPaddr Subsystem
+12. MASKaddr Subsystem
+13. GATEaddr Subsystem
+14. DHCP Subsystem
+SIGLENT
+SPD3000X QuickStart 29
+3.3 Command description
+1. *IDN?
+Command format *IDN?
+Description Query the manufacturer, product type, series No.,
+software version and hardware version
+Return Info Manufacturer, product type, series No., software version,
+hardware version
+Typical Return Siglent Technologies, SPD3303X, SPD00001130025,
+1.01.01.01.02,V3.0
+2. *SAV
+Command format *SAV {1|2|3|4|5}
+Description Save current state in nonvolatile memory
+Example *SAV 1
+3. *RCL
+Command format *RCL {1|2|3|4|5}
+Description Recall state that had been saved from nonvolatile
+memory.
+Example *RCL 1
+4. INSTrument
+Command format INSTrument {CH1|CH2}
+Description Select the channel that will be operated.
+Example INSTrument CH1
+SIGLENT
+30 SPD3000X QuickStart
+Command format INSTrument?
+Description Query the current operating channel
+Example INSTrument?
+Typical Return CH1
+5. MEASure
+Command format MEASure: CURRent? [{CH1|CH2}]
+Description Query current value for specified channel, if there is no
+specified channel, query the current channel.
+Example MEASure: CURRent? CH1
+Typical Return 3.000
+Command format MEASure: VOLTage? [{CH1|CH2}]
+Description Query voltage value for specified channel, if there is no
+specified channel, query the current channel.
+Example MEASure: VOLTage? CH1
+Typical Return 30.000
+Command format MEASure: POWEr? [{CH1|CH2}]
+Description Query power value for specified channel, if there is no
+specified channel, query the current channel.
+Example MEASure: POWEr? CH1
+Typical Return 90.000
+SIGLENT
+SPD3000X QuickStart 31
+6. CURRent
+Command format [{CH1|CH2}:]CURRent <current>
+Description Set current value of the selected channel
+Example CH1:CURRent 0.5
+Command format [{CH1|CH2}:]CURRent?
+Description Query the current value of the selected channel.
+Example CH1: CURRent?
+Typical Return 0.500
+7. VOLTage
+Command format [{CH1|CH2}:]VOLTage <voltage>
+Description Set voltage value of the selected channel
+Example CH1: VOLTage 25
+Command format [{CH1|CH2}:]VOLTage?
+Description Query the voltage value of the selected channel.
+Example CH1: VOLTage?
+Typical Return 25.000
+SIGLENT
+32 SPD3000X QuickStart
+8. OUTPut
+Command format OUTPut {CH1|CH2},{ON|OFF}
+Description Turn on/off the specified channel output.
+Example OUTPut CH1,ON
+Command format OUTPut:TRACK {0|1|2}
+Description Select operation mode. Parameters {0|1|2} mean
+independent, series and parallel respectively.
+Example OUTPut: TRACK 0
+Command format OUTPut:WAVE {CH1|CH2},{ON|OFF}
+Description Turn on/off the Waveform Display function of specified
+channel.
+Example OUTPut:WAVE CH1,ON
+9. TIMEr
+Command format TIMEr:SET
+{CH1|CH2},{1|2|3|4|5},<voltage>,<current>,<time>
+Description Set timing parameters of specified channel, including
+group{1|2|3|4|5}, voltage, current, time
+Example TIMEr:SET CH1,2,3,0.5,2
+Command format TIMEr:SET? {CH1|CH2},{1|2|3|4|5};
+Description Query the voltage/current/time parameters of specified
+group of specified channel.
+SIGLENT
+SPD3000X QuickStart 33
+Example TIMEr:SET? CH1,2
+Typical Return 3,0.5,2
+Command format TIMEr {CH1|CH2},{ON|OFF};
+Description Turn on/off Timer function of specified channel
+Example TIMEr CH1,ON
+10. SYSTem
+Command format SYSTem: ERRor?
+Description Query the error code and the information of the
+equipment.
+Typical Return 0 No Error
+Command format SYSTem: VERSion?
+Description Query the software version of the equipment.
+Typical Return 1.01.01.01.02
+Command format SYSTem:STATus?
+Description Query the current working state of the equipment.
+Typical Return 0x0224
+Note The return info is hexadecimal format, but the actual
+state is binary, so you must change the return info into a
+binary. The state correspondence relationship is as
+follow.
+SIGLENT
+34 SPD3000X QuickStart
+Bit No. Corresponding state
+0 0: CH1 CV mode; 1: CH1 CC mode
+1 0: CH2 CV mode; 1: CH2 CC mode
+2,3 01: Independent mode; 10: Parallel mode
+4 0: CH1 OFF 1: CH1 ON
+5 0: CH2 OFF 1: CH2 ON
+6 0: TIMER1 OFF 1: TIMER1 ON
+7 0: TIMER2 OFF 1: TIMER2 ON
+8 0: CH1 digital display; 1: CH1 waveform diplay
+9 0: CH2 digital display; 1: CH2 waveform diplay
+11. IPaddr
+Command format IPaddr <IP address>
+Description Assign a static Internet Protocol (IP) address for the
+instrument
+Example IPaddr 10.11.13.214
+Note The command is invalid when the state of DHCP is on
+Command format IPaddr?
+Description Query the current IP address of the instrument
+Typical Return 10.11.13.214
+12. MASKaddr
+Command format MASKaddr <NetMasK>
+Description Assign a subnet mask for the instrument
+Example MASKadd 255.255.255.0
+Note The command is invalid when the state of DHCP is on
+SIGLENT
+SPD3000X QuickStart 35
+Command format MASKaddr?
+Description Query the current subnet mask of the instrument
+Typical Return 255.255.255.0
+13. GATEaddr
+Command format GATEaddr <GateWay>
+Description Assign a gateway for the instrument
+Example GATEaddr 10.11.13.1
+Note The command is invalid when the state of DHCP is on
+Command format GATEaddr?
+Description Query the current gateway of the instrument
+Typical Return 10.11.13.1
+14. DHCP
+Command format DHCP {ON|OFF}
+Description Assign the network parameters (such as the IP address)
+for the instrument automatically.
+Example DHCP ON
+Command format DHCP?
+Description Query whether the automatic network parameters
+configuration function is turn on
+Typical Return DHCP:ON

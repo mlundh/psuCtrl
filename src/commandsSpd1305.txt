@@ -1,0 +1,763 @@
+SIGELNT
+SPD1000X User Manual 39
+ Brackets ({}) contain parameter choices. Brackets are not sent with the
+command string.
+ Vertical line (|) separates parameter selections.
+ Angle brackets (<>) indicates that you must specify a value for the
+parameter inside the brackets. For example, for the <voltage> parameter
+in angle brackets for the above command, you must specify a value for
+this parameter (for example, "CH1: VOLT 10"). Angle brackets do not
+send angle brackets along with the command string.
+ Optional parameters are enclosed in square brackets ([]). If you do not
+specify a value for the optional parameter, the instrument uses the default
+value. For example, [CH1:] in the above command can be omitted (for
+example, "VOLT 10"). At this time, the command will operate on the
+current channel. Brackets are not sent with the command string
+
+SIGELNT
+
+SPD1000X User Manual 41
+
+3.4
+ 
+Command description
+
+1
+、
+ 
+*IDN?
+
+Command format
+ 
+*IDN?
+
+Description
+ 
+Query the manufacturer, product type, series NO.
+ 
+,
+
+software version
+ 
+and hardware version
+.
+
+Return Info
+ 
+Manufacturer, product type, series NO
+.
+, software
+
+ve
+rsion.
+
+Example
+ 
+Siglent, SPD
+1168
+X
+, SPD
+1XDAD1R
+0001,
+
+2
+.01.01.0
+6,V1.0
+
+2
+、
+ 
+*SAV
+
+Command format
+ 
+*SAV <name>
+
+Description
+ 
+Save current state in nonvolatile memory
+ 
+with the
+
+specified name.
+
+Example
+ 
+*SAV 1
+
+3
+、
+ 
+*RCL
+
+Command format
+ 
+*RCL <name>
+
+Description
+ 
+Recall state
+ 
+that had been saved from nonvolatile
+
+memory.
+
+Example
+ 
+*RCL 1
+
+4
+、
+ 
+INSTrument
+
+Command format
+ 
+INSTrument <CH1
+>
+SIGELNT
+
+42
+ 
+SPD1000X User Manual
+
+Description
+ 
+Select the channel that will be operated.
+
+Example
+ 
+INSTrument CH1
+
+Command format
+ 
+INSTrument?
+
+Description
+ 
+Query the current operatin
+g channel
+
+Example
+ 
+INSTrument?
+
+Return Info
+ 
+CH1
+
+5
+、
+ 
+MEASure
+
+Command format
+ 
+MEASure: CURRent? < CH1|CH2>
+
+Description
+ 
+Query current value for specified channel, if there is no
+
+specified channel, query the current channel.
+
+Example
+ 
+MEASure: CURRent? CH1
+
+Retu
+rn Info
+ 
+3.000
+
+Command format
+ 
+MEASure: VOLTage? < CH1>
+
+Description
+ 
+Query voltage value for specified channel, if there is no
+
+specified channel, query the current channel.
+
+Example
+ 
+MEASure: VOLTage? CH1
+
+Return Info
+ 
+16
+.000
+
+Command format
+ 
+MEASure: POWEr?
+ 
+< CH>
+
+Description
+ 
+Query power value for specified channel, if there is no
+
+specified channel, query the current channel.
+
+Example
+ 
+MEASure: POWEr? CH1
+
+Return Info
+ 
+90.000
+SIGELNT
+
+SPD1000X User Manual 43
+
+6
+、
+ 
+CURRent
+
+Command format
+ 
+<SOURce:>CURRent <value>
+
+<SOURce>:={CH1}
+
+Description
+ 
+Set c
+urrent value of the selected channel
+
+Example
+ 
+CH1:CURRent 0.5
+
+Command format
+ 
+<SOURce>: CURRent?
+
+<SOURce>:={CH1}
+
+Description
+ 
+Query the current value of the selected channel.
+
+Example
+ 
+CH1: CURRent?
+
+Return Info
+ 
+0.500
+
+7
+、
+ 
+VOLTage
+
+Command format
+ 
+<SOURce>: VO
+LTage <value>
+
+<SOURce>:={CH1}
+
+Description
+ 
+Set voltage value of the selected channel
+
+Example
+ 
+CH1: VOLTage
+ 
+15
+
+Command format
+ 
+<SOURce>:CURRent?
+
+<SOURce>:={CH1}
+
+Description
+ 
+Query the voltage value of the selected channel.
+
+Example
+ 
+CH1: VOLTage?
+
+Return In
+fo
+ 
+15
+.000
+SIGELNT
+
+44
+ 
+SPD1000X User Manual
+
+8
+、
+ 
+MODE
+
+Command
+ 
+MODE:SET {2W|4W
+}
+
+Description
+ 
+To set the work operation of 2W or 4W
+
+Example
+ 
+MODE:SET 4W
+
+9
+、
+ 
+OUTPut
+
+Command format
+ 
+OUTPut <SOURce>, <state>
+
+<SOURce>:={CH1}; <state>:={
+ON|
+OFF}
+
+Description
+ 
+Turn on/off the channel.
+
+Example
+ 
+OUTPut C
+H1, ON
+
+10
+、
+ 
+TIMEr
+
+Command format
+ 
+TIMEr: SET <SOURce>, <secnum>, <volt>, <curr>,
+
+<time>
+
+<SOURce>:={CH1}; < secnum >;=1 to 5;
+
+Description
+ 
+Set timing parameters of specified channel
+
+Example
+ 
+TIMEr: SET CH1, 2, 3, 0.5, 2
+
+Command format
+ 
+TIMEr: SET? <SOURce>, <
+secnum>
+
+<SOURce>:={CH1}; < secnum >;=1 to 5;
+
+Description
+ 
+Query the voltage/current/time parameters of specified
+
+group of specified channel.
+
+Example
+ 
+TIMEr: SET? CH1, 2
+SIGELNT
+
+SPD1000X User Manual 45
+
+Return Info
+ 
+3, 0.5, 2
+
+Command format
+ 
+TIMEr <SOURce>, <state>
+
+<SOURce>:={CH1}; < stat
+e >;={ON | OFF};
+
+Description
+ 
+Turn on/off Timer function of specified channel
+
+Instruction
+ 
+The command works
+ 
+effectively
+ 
+only when <secnum>
+
+starts from 1.
+
+Example
+ 
+TIMEr CH1, ON
+
+11
+、
+ 
+SYSTem
+
+Command format
+ 
+SYSTem: ERRor?
+
+Description
+ 
+Query the error cod
+e and the information of the
+
+equipment.
+
+Command format
+ 
+SYSTem: VERSion?
+
+Description
+ 
+Query the software version of the equipment.
+
+Example
+ 
+SYSTem: VERSion?
+
+Return Info
+ 
+2
+.01.01.0
+6
+
+Command format
+ 
+SYSTem: STATus?
+
+Description
+ 
+Query the current working state of the equipment.
+
+Instruction
+ 
+The return info is
+ 
+Hexadecimal format
+, but the actual
+
+state is
+ 
+binary
+, so you must change the return info into
+ 
+a
+
+binary
+ 
+format
+.
+ 
+The
+ 
+state correspondence
+ 
+relationship
+ 
+is
+SIGELNT
+
+46
+ 
+SPD1000X User Manual
+
+as
+ 
+follow
+s
+.
+
+Example
+ 
+SYSTem: STATus?
+
+Return info
+ 
+0
+x0224
+
+Explanation: The returned information is hexadecimal, so the user needs to
+
+convert to binary format when confirming the status.
+ 
+See
+ 
+the following table:
+
+Bit NO.
+ 
+Corresponding state
+
+0
+ 
+0: CV mode
+ 
+1:
+ 
+CC mode
+
+4
+ 
+0: Output OFF
+ 
+1: Output
+ 
+ON
+
+5
+ 
+0:
+ 
+2W mode
+ 
+1:
+ 
+4W mode
+
+6
+ 
+0: TIMER OFF
+ 
+1: TIMER
+ 
+ON
+
+8
+ 
+0: digital display;
+ 
+1: waveform di
+s
+play
+
+12
+、
+ 
+IPaddr
+
+Command format
+ 
+IPaddr <IP address>
+
+Description
+ 
+Used to assign a Static Internet Protocol (IP) address to
+
+the instrument
+
+Example
+
+Explanation
+
+IP
+addr 10.11.13.214
+
+This command is invalid when the power is currently set
+to automatically obtain the network configuration (DHCP
+is ON)
+
+Command format
+ 
+IPaddr?
+
+Description
+ 
+Query the software the setting of IP address
+
+Example
+ 
+SYSTem: VERSion?
+SIGELNT
+
+SPD1000X User Manual 47
+
+Return
+ 
+Info
+ 
+10.11.13.214
+
+13
+、
+ 
+MASKaddr
+
+Command format
+ 
+MASKaddr <NetMask>
+
+Description
+ 
+Used to assign a subnet mask to the instrument
+
+Example
+
+Explanation
+
+MASKaddr 255.255.255.0
+
+This command is invalid when the power is currently set
+to automatically obtain the netw
+ork configuration (DHCP
+is ON)
+
+Command format
+ 
+MASKaddr?
+
+Description
+ 
+Query the software the setting of
+ 
+mask
+ 
+address
+
+Example
+ 
+SYSTem: VERSion?
+
+Return Info
+ 
+255.255.255.0
+
+14
+、
+ 
+GATEaddr
+
+Command format
+ 
+GATE
+addr <
+GateWay
+>
+
+Description
+ 
+Used to assign a
+gateway
+ 
+to the instrument
+
+Example
+
+Explanation
+
+GATE
+addr
+ 
+10.11.13.1
+
+This command is invalid when the power is currently set
+to automatically obtain the network configuration (DHCP
+is ON)
+SIGELNT
+
+48
+ 
+SPD1000X User Manual
+
+Command format
+ 
+MASKaddr?
+
+Description
+ 
+Query the software the setting of
+ 
+gat
+eway
+ 
+address
+
+Return Info
+ 
+10.11.13.1
+
+15
+、
+ 
+DHCP
+
+Command format
+ 
+DHCP{ON|OFF}
+
+Description
+ 
+Turn on or off the instrument's automatic network
+
+configuration feature.
+
+Example
+ 
+DHCP ON
+
+Command format
+ 
+DHCP
+?
+
+Description
+ 
+This
+ 
+is used to query whether the curre
+nt automatic
+
+network configuration of the instrument is enabled
+
+Return Info
+ 
+ON
+
+16
+、
+ 
+*LOCK
+
+Command format
+ 
+*LOCK
+
+Description
+ 
+Turn on the key lock to disable local or remote settings.
+
+Example
+ 
+*LOCK
+
+Command format
+ 
+*UNLOCK
+
+Description
+ 
+Turn off the key loc
+k to validate the setting
+
+Example
+ 
+*UNLOCK
