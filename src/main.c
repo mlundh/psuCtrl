@@ -88,12 +88,16 @@ static int parse_port(const char *s)
     return (int)v;
 }
 
-static spd_channel_t parse_channel(const char *s)
+static spd_channel_t parse_channel(const char *s, spd_model_t model)
 {
     char *end;
     long v = strtol(s, &end, 10);
-    if (*end != '\0' || v < 1 || v > SPD_CH_MAX) {
-        fprintf(stderr, "Invalid channel '%s' (must be 1 or 2)\n", s);
+    int max = spd_channel_count(model);
+    if (*end != '\0' || v < 1 || v > max) {
+        if (max == 1)
+            fprintf(stderr, "Invalid channel '%s' (this model has CH1 only)\n", s);
+        else
+            fprintf(stderr, "Invalid channel '%s' (must be 1..%d)\n", s, max);
         return (spd_channel_t)-1; /* sentinel: cast -1 to the enum type */
     }
     return (spd_channel_t)v;
@@ -138,8 +142,7 @@ static int cmd_meas(scpi_ctx_t *ctx, spd_model_t model,
         return -1;
     }
 
-    (void)model;
-    spd_channel_t ch = parse_channel(argv[0]);
+    spd_channel_t ch = parse_channel(argv[0], model);
     if ((int)ch < 0)
         return -1;
 
@@ -156,13 +159,12 @@ static int cmd_meas(scpi_ctx_t *ctx, spd_model_t model,
 static int cmd_setvolt(scpi_ctx_t *ctx, spd_model_t model,
                        int argc, char **argv)
 {
-    (void)model;
     if (argc < 2) {
         fprintf(stderr, "setvolt: usage: setvolt <ch> <volts>\n");
         return -1;
     }
 
-    spd_channel_t ch = parse_channel(argv[0]);
+    spd_channel_t ch = parse_channel(argv[0], model);
     if ((int)ch < 0)
         return -1;
 
@@ -176,13 +178,12 @@ static int cmd_setvolt(scpi_ctx_t *ctx, spd_model_t model,
 static int cmd_setcurr(scpi_ctx_t *ctx, spd_model_t model,
                        int argc, char **argv)
 {
-    (void)model;
     if (argc < 2) {
         fprintf(stderr, "setcurr: usage: setcurr <ch> <amps>\n");
         return -1;
     }
 
-    spd_channel_t ch = parse_channel(argv[0]);
+    spd_channel_t ch = parse_channel(argv[0], model);
     if ((int)ch < 0)
         return -1;
 
@@ -196,13 +197,12 @@ static int cmd_setcurr(scpi_ctx_t *ctx, spd_model_t model,
 static int cmd_set(scpi_ctx_t *ctx, spd_model_t model,
                    int argc, char **argv)
 {
-    (void)model;
     if (argc < 3) {
         fprintf(stderr, "set: usage: set <ch> <volts> <amps>\n");
         return -1;
     }
 
-    spd_channel_t ch = parse_channel(argv[0]);
+    spd_channel_t ch = parse_channel(argv[0], model);
     if ((int)ch < 0)
         return -1;
 
@@ -217,13 +217,12 @@ static int cmd_set(scpi_ctx_t *ctx, spd_model_t model,
 static int cmd_on(scpi_ctx_t *ctx, spd_model_t model,
                   int argc, char **argv)
 {
-    (void)model;
     if (argc < 1) {
         fprintf(stderr, "on: missing channel argument\n");
         return -1;
     }
 
-    spd_channel_t ch = parse_channel(argv[0]);
+    spd_channel_t ch = parse_channel(argv[0], model);
     if ((int)ch < 0)
         return -1;
 
@@ -233,13 +232,12 @@ static int cmd_on(scpi_ctx_t *ctx, spd_model_t model,
 static int cmd_off(scpi_ctx_t *ctx, spd_model_t model,
                    int argc, char **argv)
 {
-    (void)model;
     if (argc < 1) {
         fprintf(stderr, "off: missing channel argument\n");
         return -1;
     }
 
-    spd_channel_t ch = parse_channel(argv[0]);
+    spd_channel_t ch = parse_channel(argv[0], model);
     if ((int)ch < 0)
         return -1;
 

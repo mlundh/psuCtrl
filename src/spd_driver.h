@@ -5,7 +5,7 @@
  *
  * Supported models
  * ----------------
- *   SPD1305X   — CH1/CH2, 0–30 V each.  CH1 and CH2 independent.
+ *   SPD1305X   — CH1 only, 0–30 V.  Single controlled channel.
  *   SPD3303X-E — CH1/CH2, 0–30 V each.  CH1 and CH2 independent.
  *
  * Model is detected automatically by querying *IDN? after connecting.
@@ -68,6 +68,12 @@ spd_model_t spd_detect_model(scpi_ctx_t *ctx);
 
 /** Return a human-readable model name string ("SPD1305X", etc.). */
 const char *spd_model_name(spd_model_t model);
+
+/**
+ * Return the number of controllable channels for a given model.
+ * SPD1305X = 1, SPD3303X-E = 2, UNKNOWN = 2 (safe default).
+ */
+int spd_channel_count(spd_model_t model);
 
 /* ------------------------------------------------------------------ */
 /* Types                                                               */

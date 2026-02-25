@@ -107,6 +107,15 @@ const char *spd_model_name(spd_model_t model)
     }
 }
 
+int spd_channel_count(spd_model_t model)
+{
+    /*
+     * SPD1305X has only one controllable channel (CH1).
+     * All other models (SPD3303X-E, and unknown as a safe default) have two.
+     */
+    return (model == SPD_MODEL_1305X) ? 1 : SPD_CH_MAX;
+}
+
 /* ------------------------------------------------------------------ */
 /* Identification                                                      */
 /* ------------------------------------------------------------------ */
@@ -315,7 +324,8 @@ void spd_print_status(scpi_ctx_t *ctx, spd_model_t model)
     printf("│ Channel │ Set V / Set A        │ Meas V / Meas A      │ Output │\n");
     printf("├─────────┼──────────────────────┼──────────────────────┼────────┤\n");
 
-    for (int i = SPD_CH1; i <= SPD_CH_MAX; i++) {
+    int ch_max = spd_channel_count(model);
+    for (int i = SPD_CH1; i <= ch_max; i++) {
         spd_channel_state_t st;
         if (spd_get_channel_state(ctx, model, (spd_channel_t)i, &st) < 0) {
             printf("│ %-7s │ %-20s │ %-20s │ %-6s │\n",
